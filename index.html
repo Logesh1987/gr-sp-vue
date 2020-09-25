@@ -1,0 +1,168 @@
+<html ng-app="grLoyalty">
+
+<head>
+    <title>GR - Loyalty</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/mockData.js"></script>
+</head>
+
+<body>
+    <div id="sp-controller">
+        <div class="campaign-overlay-wrapper">
+            <div class="campaign-restricted" style="display: none;">
+                <figure></figure>
+                <p>Sorry you are unable to participate in this campaign</p>
+            </div>
+            <div class="campaign-container" :class="{login: pageView === 'beforeLogin'}">
+                <a href="#" class="campaign-close">&times;</a>
+                <div class="campaign-beforeLogin" v-if="pageView == 'beforeLogin'">
+                    <div class="campaign-beforeLogin-container">
+                        <svg viewBox="0 0 136.8 173.4" class="top-bg">
+                            <g>
+                                <path class="st0" d="M0.1,0.4h136.8c0,0-29.4,30.3-64.4,49s-64.7,90-72.3,93.7V0.4z" />
+                                <path class="st1" d="M104.4,0.4c0,0-47.7,23.3-67,60.3S7.8,161.4,0.4,173.1" />
+                            </g>
+                        </svg>
+                        <svg viewBox="0 0 171.5 199.5" class="bottom-bg">
+                            <g>
+                                <path class="st0"
+                                    d="M0.6,199.3h170.3V0c0,0-13.7,44-70.7,79.3C52.4,109-6.4,163.7,0.6,199.3z" />
+                                <path class="st1" d="M33.6,199c0,0,110.3-37,138.7-116.3" />
+                            </g>
+                        </svg>
+                        <div>
+                            <h5>Hurry! Today's entry ends in 04:05:12</h5>
+                            <figure class="logo">
+                                <img src="images/logo-solr.png" alt="">
+                            </figure>
+                            <small>Hey Johnny</small>
+                            <h2>Gaint text can come here.</h2>
+                            <p>And a description will come here to support the elements here. Three lines of text could
+                                also
+                                come.</p>
+                            <button class="campaign-btn-primary">Continue Shopping</button>
+                            <p class="min-order-value"><strong>Min Order value $48</strong></p>
+                            <a href="#" class="tc"><small>Terms & Conditions</small></a>
+                        </div>
+                    </div>
+                    <nav class="campaign-beforeLogin-menu">
+                        <button @click.prevent="pageView = 'winner'">Winners</button>
+                        <button @click.prevent="pageView = 'prize'">Prizes</button>
+                    </nav>
+                </div>
+                <div class="campaign-afterLogin" v-if="pageView !== 'beforeLogin'">
+                    <nav>
+                        <a :class="{active: pageView === 'home'}" @click.prevent="handleHomeClick" href="#">Home</a>
+                        <a :class="{active: pageView === 'winner'}" @click.prevent="pageView = 'winner'"
+                            href="#">Winners</a>
+                        <a :class="{active: pageView === 'prize'}" @click.prevent="pageView = 'prize'"
+                            href="#">Prizes</a>
+                    </nav>
+                    <div class="campaign-home" v-if="pageView == 'home'">
+                        <h4>Hi Johnny</h4>
+                        <section>
+                            <p>
+                                Thank you for your participation. <br />
+                                Participate more and get more chances to win exciting gifts
+                            </p>
+                            <div class="entry-box">
+                                <span>
+                                    You Earned
+                                </span>
+                                <span>
+                                    <strong>320</strong>
+                                    #Entries
+                                </span>
+                            </div>
+                        </section>
+                        <button class="campaign-btn-primary">Continue shopping</button>
+                    </div>
+                    <div class="campaign-winner" v-if="pageView == 'winner'">
+                        <div class="campaign-head">
+                            <h3>Winners</h3>
+                        </div>
+                        <div class="campaign-wp-body">
+                            <nav>
+                                <a href="#" @click="winnerView = 'daily'"
+                                    :class="{active: winnerView === 'daily'}">Daily</a>
+                                <a href="#" @click="winnerView = 'weekly'"
+                                    :class="{active: winnerView === 'weekly'}">Weekly</a>
+                                <a href="#" @click="winnerView = 'monthly'"
+                                    :class="{active: winnerView === 'monthly'}">Monthly</a>
+                                <a href="#" @click="winnerView = 'grand'"
+                                    :class="{active: winnerView === 'grand'}">Grand</a>
+                            </nav>
+                            <ul>
+                                <li v-for="(data, index) in campaignData.winners" :key="index"
+                                    v-if="data.type === winnerView">
+                                    <div class="campaign-winner-card">
+                                        <div class="dateTime">
+                                            <strong>{{ data.date }}</strong>
+                                            <span>{{ data.time }}</span>
+                                        </div>
+                                        <div class="info">
+                                            <figure>
+                                                <img :src="data.image" alt="">
+                                            </figure>
+                                            <div>
+                                                <h6>{{ data.title }}</h6>
+                                                <ul>
+                                                    <li v-for="(winner, index) in data.winners" :key="index">
+                                                        <figure><img :src="winner.thumb">
+                                                        </figure>
+                                                        <span>{{ winner.name }}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="campaign-prize" v-if="pageView == 'prize'">
+                        <div class="campaign-head">
+                            <h3>Prizes for Winners</h3>
+                        </div>
+                        <div class="campaign-wp-body">
+                            <nav>
+                                <a href="#" @click="prizeView = 'daily'"
+                                    :class="{active: prizeView === 'daily'}">Daily</a>
+                                <a href="#" @click="prizeView = 'weekly'"
+                                    :class="{active: prizeView === 'weekly'}">Weekly</a>
+                                <a href="#" @click="prizeView = 'monthly'"
+                                    :class="{active: prizeView === 'monthly'}">Monthly</a>
+                                <a href="#" @click="prizeView = 'grand'"
+                                    :class="{active: prizeView === 'grand'}">Grand</a>
+                            </nav>
+                            <ul>
+                                <li v-for="(data, index) in campaignData.prizes" :key="index"
+                                    v-if="data.type === prizeView">
+                                    <div class="campaign-prize-card">
+                                        <figure>
+                                            <img :src="data.image" alt="">
+                                        </figure>
+                                        <div>
+                                            <p>{{ data.desc }}</p>
+                                            <hr />
+                                            <span>Quantity: <strong>{{ data.quantity }}</strong></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="campaign-footer">
+                    <img src="images/footer.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="scripts/main.js"></script>
+
+</html>

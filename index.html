@@ -48,8 +48,8 @@
                         </div>
                     </div>
                     <nav class="campaign-beforeLogin-menu">
-                        <button @click.prevent="pageView = 'winner'">Winners</button>
-                        <button @click.prevent="pageView = 'prize'">Prizes</button>
+                        <button class="btn-winners" @click.prevent="pageView = 'winner'"><span>Winners</span></button>
+                        <button class="btn-prizes" @click.prevent="pageView = 'prize'"><span>Prizes</span></button>
                     </nav>
                 </div>
                 <div class="campaign-afterLogin" v-if="pageView !== 'beforeLogin'">

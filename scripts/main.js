@@ -2,8 +2,8 @@
 var app = new Vue({
     el: '#sp-controller',
     data: {
-      loggedIn: false,
-      pageView: 'winner',
+      loggedIn: true,
+      pageView: 'beforeLogin',
       prizeView: 'daily',
       winnerView: 'daily',
       campaignData: {

@@ -28,7 +28,7 @@
        "timezone": "America/Chicago",
        "is_bg": "1",
        "theme_json": {
-          "bg_theme": "1",
+          "bg_theme": "2",
           "primary_color": "#5e278f",
           "secondary_color": "#05c7d4",
           "button_color": "#333333",
@@ -130,7 +130,7 @@
     ],
     "is_prizes": "1",
     "theme_settings": {
-       "bg_theme": "1",
+       "bg_theme": "2",
        "primary_color": "#5e278f",
        "secondary_color": "#05c7d4",
        "button_color": "#333333",
